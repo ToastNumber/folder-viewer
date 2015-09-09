@@ -8,18 +8,30 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
 public class TreeWalker extends SimpleFileVisitor<Path> {
-	private static int level = 0;
+	private int level = 0;
 	private final List<String> toIgnore;
+	private PrintStyle style;
 
-	public TreeWalker(List<String> toIgnore) {
+	public TreeWalker(List<String> toIgnore, PrintStyle style) {
 		this.toIgnore = toIgnore;
+		this.style = style;
 	}
 
-	private static String getLevelled(String s) {
+	private String getLevelled(String s) {
 		String svaret = "";
-		for (int i = 0; i < level; ++i) {
-			svaret += "\t";
-		}
+
+		if (style == PrintStyle.Minimal) {
+			for (int i = 0; i < level; ++i) {
+				svaret += "\t";
+			}
+		} else if (style == PrintStyle.Fancy) {
+			for (int i = 0; i < level - 1; ++i) {
+				svaret += "\t";
+			}
+			
+			if (level == 1) svaret += "+---";
+			else if (level >= 2) svaret += "¦---";
+		} 
 
 		svaret += s;
 		return svaret;
@@ -28,20 +40,19 @@ public class TreeWalker extends SimpleFileVisitor<Path> {
 	private static String nameOf(Path dir) {
 		return dir.getFileName().toString();
 	}
-	
+
 	private boolean isIgnored(Path dir) {
 		String name = nameOf(dir).toLowerCase();
-		if ()
+
+		return toIgnore.contains(name);
 	}
 
 	@Override
 	public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-		String name = nameOf(dir);
-
-		if (toIgnore.contains(name.toLowerCase())) {
+		if (isIgnored(dir)) {
 			return FileVisitResult.SKIP_SUBTREE;
 		} else {
-			System.out.println(getLevelled(dir.getFileName().toString()) + "/");
+			System.out.println(getLevelled(nameOf(dir)) + "/");
 			++level;
 
 			return FileVisitResult.CONTINUE;
@@ -50,7 +61,9 @@ public class TreeWalker extends SimpleFileVisitor<Path> {
 
 	@Override
 	public FileVisitResult visitFile(Path file, BasicFileAttributes attr) {
-		System.out.println(getLevelled(file.getFileName().toString()));
+		if (!isIgnored(file)) {
+			System.out.println(getLevelled(nameOf(file)));
+		}
 
 		return FileVisitResult.CONTINUE;
 	}
@@ -58,7 +71,6 @@ public class TreeWalker extends SimpleFileVisitor<Path> {
 	@Override
 	public FileVisitResult visitFileFailed(Path file, IOException exc) {
 		System.err.println(exc);
-
 		return FileVisitResult.CONTINUE;
 	}
 

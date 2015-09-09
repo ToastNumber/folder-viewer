@@ -15,7 +15,7 @@ public class DirectoryPrinter {
 		toIgnore.add(".git");
 		toIgnore.add(".classpath");
 		
-		TreeWalker walker = new TreeWalker(toIgnore);
+		TreeWalker walker = new TreeWalker(toIgnore, PrintStyle.Fancy);
 		
 		Files.walkFileTree(dir, walker);
 	}
