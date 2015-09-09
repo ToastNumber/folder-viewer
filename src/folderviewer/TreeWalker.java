@@ -16,17 +16,21 @@ public class TreeWalker extends SimpleFileVisitor<Path> {
 		this.toIgnore = toIgnore;
 		this.style = style;
 	}
+	
+	private static String getTab() {
+		return "    "; //4 spaces
+	}
 
 	private String getLevelled(String s) {
 		String svaret = "";
 
 		if (style == PrintStyle.Minimal) {
 			for (int i = 0; i < level; ++i) {
-				svaret += "\t";
+				svaret += getTab();
 			}
 		} else if (style == PrintStyle.Fancy) {
 			for (int i = 0; i < level - 1; ++i) {
-				svaret += "\t";
+				svaret += getTab();
 			}
 			
 			if (level == 1) svaret += "+---";
