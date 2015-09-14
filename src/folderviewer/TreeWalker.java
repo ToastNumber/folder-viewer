@@ -11,10 +11,15 @@ public class TreeWalker extends SimpleFileVisitor<Path> {
 	private int level = 0;
 	private final List<String> toIgnore;
 	private PrintStyle style;
-
+	private String output = "";
+	
 	public TreeWalker(List<String> toIgnore, PrintStyle style) {
 		this.toIgnore = toIgnore;
 		this.style = style;
+	}
+	
+	public String getOutput() {
+		return output;
 	}
 	
 	private static String getTab() {
@@ -56,7 +61,10 @@ public class TreeWalker extends SimpleFileVisitor<Path> {
 		if (isIgnored(dir)) {
 			return FileVisitResult.SKIP_SUBTREE;
 		} else {
-			System.out.println(getLevelled(nameOf(dir)) + "/");
+			String toPrint = getLevelled(nameOf(dir)) + "/";
+			
+			output += toPrint + "\n";
+			System.out.println(toPrint);
 			++level;
 
 			return FileVisitResult.CONTINUE;
@@ -66,7 +74,10 @@ public class TreeWalker extends SimpleFileVisitor<Path> {
 	@Override
 	public FileVisitResult visitFile(Path file, BasicFileAttributes attr) {
 		if (!isIgnored(file)) {
-			System.out.println(getLevelled(nameOf(file)));
+			String toPrint = getLevelled(nameOf(file));
+			
+			output += toPrint + "\n";
+			System.out.println(toPrint);
 		}
 
 		return FileVisitResult.CONTINUE;
