@@ -1,5 +1,7 @@
 @ECHO off
 
+@IF NOT EXIST "bin" GOTO create
+
 :main
 	ECHO Folder Viewer
 	ECHO.
@@ -9,10 +11,7 @@
 	SET /p dr="Enter directory: "
 	SET/p ignore="To ignore: "
 
-	@IF NOT EXIST "bin" GOTO create 
-	
-	:run
-		java -cp bin folderviewer.FolderViewer %dr% fancy true %ignore%
+	java -cp bin folderviewer.FolderViewer %dr% fancy true %ignore%
 
 	PAUSE
 	CLS
@@ -23,4 +22,4 @@
 :create
 	MKDIR "bin"
 	javac -d bin src/folderviewer/*.java
-	GOTO run 
+	GOTO mani
