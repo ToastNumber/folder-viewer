@@ -22,4 +22,4 @@
 :create
 	MKDIR "bin"
 	javac -d bin src/folderviewer/*.java
-	GOTO mani
+	GOTO main
