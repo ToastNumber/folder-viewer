@@ -37,5 +37,8 @@ folder-viewer/
         ¦---TreeWalker.java
 ```
 
+##Automated
+A `run.bat` file has been added, which automatically compiles and/or runs the program, and asks for the directory and the files to ignore. The style is set to `fancy` and the output is copied to the clipboard.
+
 ##Tip
 The windows command line and BASH have a 'Mark' feature, which allows you to copy the output to the clipboard. To do this, right-click on the top of the command-line window, then `Edit -> Mark`. Now highlight the text you wish to copy using your mouse, then press the `ENTER` key to copy the text to the clipboard.
