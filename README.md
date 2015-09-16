@@ -12,27 +12,30 @@ Run your program using the command `java folderviewer/FolderViewer <root> (minim
 - `compile.bat` automatically compiles the source files into a bin folder.
 - `run.bat` automatically runs the program, and asks for the directory and the files to ignore. The style is set to `fancy` and the output is copied to the clipboard.
 
-A `run.bat` file has been added, which automatically compiles and/or runs the program, and asks for the directory and the files to ignore.
-	
 ##Example
 Using `java folderviewer/FolderViewer ../ minimal .git .classpath .settings .project`, will output the contents of this repository:
 ```
 folder-viewer/
-    .gitignore
-    README.md
-    src/
-        folderviewer/
-            DirectoryPrinter.java
-            FolderViewer.java
-            PrintStyle.java
-            TreeWalker.java
+	.gitignore
+	compile.bat
+	README.md
+	run.bat
+	src/
+		folderviewer/
+			DirectoryPrinter.java
+			FolderViewer.java
+			PrintStyle.java
+			TreeWalker.java
+
 ```
 
 And using `java folderviewer/FolderViewer ../ fancy .git .classpath .settings .project`, will output it like this:
 ```
 folder-viewer/
 +---.gitignore
++---compile.bat
 +---README.md
++---run.bat
 +---src/
     ¦---folderviewer/
         ¦---DirectoryPrinter.java
@@ -40,6 +43,3 @@ folder-viewer/
         ¦---PrintStyle.java
         ¦---TreeWalker.java
 ```
-
-##Tip
-The windows command line and BASH have a 'Mark' feature, which allows you to copy the output to the clipboard. To do this, right-click on the top of the command-line window, then `Edit -> Mark`. Now highlight the text you wish to copy using your mouse, then press the `ENTER` key to copy the text to the clipboard.
