@@ -5,7 +5,7 @@ ECHO.
 
 :make
 	ECHO Compiling files.
-	javac -d bin src/brainfunk/*.java
+	javac -d bin src/folderviewer/*.java
 	ECHO Compilation complete.
 	pause
 	exit
